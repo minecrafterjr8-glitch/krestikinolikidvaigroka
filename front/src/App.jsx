@@ -2,6 +2,10 @@ import { useState } from "react"
 import Map from "./components/Map/Map"
 import { useEffect } from "react"
 import { API_URL } from "./config"
+import LoginPage from "../../../tik-tak-toe - online - fullstack/front/src/pages/LoginPage"
+import GamePage from "../../../tik-tak-toe - online - fullstack/front/src/pages/GamePage"
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+
 
 function App() {
   const [info, setInfo] = useState("X делает первый ход")
@@ -19,10 +23,12 @@ function App() {
 
   return (
     <>
-      <div className="page">
-        <p className="status">{info}</p>
-        <Map setInfo={setInfo} />
-      </div>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/match" element={<GamePage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
