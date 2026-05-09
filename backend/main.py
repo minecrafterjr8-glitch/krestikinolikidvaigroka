@@ -23,7 +23,8 @@ def players_ready_route():
     player_uuid = request.headers.get("authorisation")
     if not player_uuid:
         return "нет uuuid"
-    players.append(player_uuid)
+    if player_uuid not in players:
+        players.append(player_uuid)
     return "ok"
 
 
