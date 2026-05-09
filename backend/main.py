@@ -77,7 +77,12 @@ def players_route():
 @app.route("/matches")
 def matches_route():
     return matches
-
+@app.route("/match/<id>")
+def match(id):
+    for match in matches:
+        if match["match_id"] == id:
+            return match
+    return "НЕТУ МАТЧА (ГЛЮК ИЛИ ТЫ БАЛУЭШСА)"
 
 if __name__ == "__main__":
     app.run(debug=True)
