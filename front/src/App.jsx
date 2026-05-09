@@ -27,7 +27,7 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<LoginPage />} />
-            <Route path="/match" element={<GamePage />} />
+            <Route path="/match/:id" element={<GamePage />} />
         </Routes>
       </BrowserRouter>
     </>

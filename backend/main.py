@@ -65,8 +65,10 @@ def playerstatus():
     for match in matches:
         if match["player_1"] == player_uuid or match["player_2"] == player_uuid:
             current_match_id = match["match_id"]
-            return {"status": "в матче", "match": current_match_id}
+            return {"status": "в матче", "match_id": current_match_id}
     return "НЕ НАДО ДЯДЯ"
+
+
 # тестовые роуты
 @app.route("/players")
 def players_route():
