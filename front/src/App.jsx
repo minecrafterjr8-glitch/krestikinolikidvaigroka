@@ -2,9 +2,10 @@ import { useState } from "react"
 import Map from "./components/Map/Map"
 import { useEffect } from "react"
 import { API_URL } from "./config"
-import LoginPage from "../../../tik-tak-toe - online - fullstack/front/src/pages/LoginPage"
-import GamePage from "../../../tik-tak-toe - online - fullstack/front/src/pages/GamePage"
+
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import GamePage from "./pages/GamePage";
 
 
 function App() {

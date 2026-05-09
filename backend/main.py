@@ -18,11 +18,6 @@ def register_route():
     return str(uuid.uuid4())
 
 
-@app.route("/player/isready")
-def player_status():
-    return players
-
-
 @app.route("/players/ready")
 def players_ready_route():
     player_uuid = request.headers.get("authorisation")
@@ -30,6 +25,11 @@ def players_ready_route():
         return "нет uuuid"
     players.append(player_uuid)
     return "ok"
+
+
+@app.route("/player/isready")
+def player_status():
+    return players
 
 
 @app.route("/players")
