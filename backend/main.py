@@ -4,8 +4,33 @@ from flask import Flask, request
 from flask_cors import CORS
 
 players = []
+matches = []
+match_template = {
+    "match_id": None,
+    "player_1": None,
+    "player_2": None,
+    "map": ["", "", "", "", "", "", "", "", ""],
+}
+
 app = Flask(__name__)
 CORS(app)
+
+
+# создаст матч, если возможно
+def create_match():
+    if len(players) < 2:
+        return
+    
+    player_1 = players[0]
+    player_2 = players[1]
+    players.remove(player_1)
+    players.remove(player_2)
+
+    match = match_template.copy()
+    match["match_id"] = str(uuid.uuid4())
+    match["player_1"] = player_1
+    match["player_2"] = player_2
+    matches.append(match)
 
 
 @app.route("/")
@@ -25,6 +50,8 @@ def players_ready_route():
         return "нет uuuid"
     if player_uuid not in players:
         players.append(player_uuid)
+    
+    create_match()
     return "ok"
 
 
@@ -33,9 +60,14 @@ def player_status():
     return players
 
 
+# тестовые роуты
 @app.route("/players")
 def players_route():
     return players
+
+@app.route("/matches")
+def matches_route():
+    return matches
 
 
 if __name__ == "__main__":

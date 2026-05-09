@@ -4,15 +4,12 @@ import { API_URL } from "../config";
 export default function LoginPage() {
     const [isWaiting, setWaiting] = useState(false)
 
-    async function joinHandler() {
-        console.log("отправил зарпос");
-        
+    async function joinHandler() {        
         const url = API_URL + "/players/ready"
         const response = await fetch(url, {headers: {authorisation: localStorage.getItem("uuid")}});
-        console.log(response);
-        
         setWaiting(true)
     }
+
     return (
         <>
             <div className="loginPage">
