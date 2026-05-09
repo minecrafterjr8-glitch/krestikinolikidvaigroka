@@ -55,11 +55,18 @@ def players_ready_route():
     return "ok"
 
 
-@app.route("/player/isready")
-def player_status():
-    return players
-
-
+@app.route("/player/status")
+def playerstatus():
+    player_uuid = request.headers.get("authorisation")
+    if not player_uuid:
+        return "нет uuuid"
+    if player_uuid in players:
+        return {"status": "в очереди"}
+    for match in matches:
+        if match["player_1"] == player_uuid or match["player_2"] == player_uuid:
+            current_match_id = match["match_id"]
+            return {"status": "в матче", "match": current_match_id}
+    return "НЕ НАДО ДЯДЯ"
 # тестовые роуты
 @app.route("/players")
 def players_route():
