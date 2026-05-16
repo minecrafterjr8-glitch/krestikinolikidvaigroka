@@ -2,12 +2,8 @@ import { useState } from "react"
 import WinnerLine from "../Line/Line";
 
 
-export default function Map({ setInfo }) {
-    const [map, setMap] = useState([
-        "", "", "",
-        "", "", "",
-        "", "", ""
-    ]);
+export default function Map({ setInfo, map, setMap }) {
+
 
     const [isGameOver, setGameOver] = useState(false)
     const [currentPlayer, setCurrentPlayer] = useState("X")
