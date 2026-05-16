@@ -9,6 +9,8 @@ match_template = {
     "match_id": None,
     "player_1": None,
     "player_2": None,
+    "next_player": None,
+    "next_move": None,
     "map": ["", "", "", "", "", "", "", "", ""],
 }
 
@@ -30,6 +32,8 @@ def create_match():
     match["match_id"] = str(uuid.uuid4())
     match["player_1"] = player_1
     match["player_2"] = player_2
+    match["next_player"] = player_1
+    match["next_move"] = "X"
     matches.append(match)
 
 
@@ -69,20 +73,45 @@ def playerstatus():
     return "НЕ НАДО ДЯДЯ"
 
 
-# тестовые роуты
-@app.route("/players")
-def players_route():
-    return players
-
-@app.route("/matches")
-def matches_route():
-    return matches
 @app.route("/match/<id>")
 def match(id):
     for match in matches:
         if match["match_id"] == id:
             return match
     return "НЕТУ МАТЧА (ГЛЮК ИЛИ ТЫ БАЛУЭШСА)"
+
+
+@app.route("/match/<id>/move", methods=["POST"])
+def match_move(id):
+    # todo - проверка, что такого матча нет
+    # todo - кто из игроков сделал ход
+    index_cell = request.json.get("index_cell")
+    for match in matches:
+        if match["match_id"] == id:
+            if match["next_move"] == "X":
+                next_move = "O"
+            else:
+                next_move = "X"
+            match["map"][index_cell] = match["next_move"]
+            match["next_move"] = next_move
+            
+            return "ok"
+    
+    return "НЕТУ МАТЧА (ГЛЮК ИЛИ ТЫ БАЛУЭШСА)"
+
+
+
+# тестовые роуты
+@app.route("/players")
+def players_route():
+    return players
+
+
+@app.route("/matches")
+def matches_route():
+    return matches
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
