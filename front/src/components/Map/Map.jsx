@@ -2,7 +2,7 @@ import { useState } from "react"
 import WinnerLine from "../Line/Line";
 
 
-export default function Map({ setInfo, map, setMap }) {
+export default function Map({ setInfo, map }) {
 
 
     const [isGameOver, setGameOver] = useState(false)
